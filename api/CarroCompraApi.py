@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint, request, jsonify
 from config.Token import generate_token
 from config.bd import app, bd, ma
-from models.Categoria import CarroCompra, CarroCompraSchema
+from models.CarroCompra import CarroCompra, CarroCompraSchema
 from config.routeProtection import token_required
 
 

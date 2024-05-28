@@ -1,8 +1,8 @@
 from flask import Flask, Blueprint, request, jsonify
-from Config.Token import generate_token
-from Config.bd import app, bd, ma
-from Models.Categoria import Categoria, CategoriaSchema
-from Config.routeProtection import token_required
+from config.Token import generate_token
+from config.bd import app, bd, ma
+from models.Categoria import Categoria, CategoriaSchema
+from config.routeProtection import token_required
 
 
 ruta_categoria = Blueprint("ruta_categoria", __name__)
