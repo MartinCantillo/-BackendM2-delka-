@@ -12,15 +12,15 @@ categoria_schema = CategoriaSchema()
 categorias_schema = CategoriaSchema(many=True)
 
 
-@ruta_categoria.route('/categorias', methods=['GET'])
+@ruta_categoria.route('/obtenercategorias', methods=['GET'])
 @token_required
 def get_categorias():
     categorias = Categoria.query.all()
     result = categorias_schema.dump(categorias)
-    return jsonify(result)
+    return jsonify.dump(result)
 
 
-@ruta_categoria.route('/categoria', methods=['POST'])
+@ruta_categoria.route('/agregarcategoria', methods=['POST'])
 @token_required
 def add_categoria():
     nombre = request.json['nombre']
@@ -33,7 +33,7 @@ def add_categoria():
     return categoria_schema.jsonify(nueva_categoria)
 
 
-@ruta_categoria.route('/categoria', methods=['DELETE'])
+@ruta_categoria.route('/eliminarcategoria', methods=['DELETE'])
 @token_required
 def delete_categoria(id):
     id = request.json['id']

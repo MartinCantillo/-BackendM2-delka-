@@ -14,7 +14,7 @@ productos_schema = ProductoSchema(many=True)
 def get_productos():
     productos = Producto.query.all()
     result = productos_schema.dump(productos)
-    return jsonify(result)
+    return jsonify.dump(result)
 
 @ruta_producto.route('/addProducto', methods=['POST'])
 @token_required
@@ -26,8 +26,8 @@ def add_producto():
     IdCategoria = request.json['IdCategoria']
 
     nuevo_producto = Producto(nombre, prioridad, nota, precio, IdCategoria, False)
-    db.session.add(nuevo_producto)
-    db.session.commit()
+    bd.session.add(nuevo_producto)
+    bd.session.commit()
 
     return producto_schema.jsonify(nuevo_producto)
 
@@ -39,8 +39,8 @@ def delete_producto():
     if producto is None:
         return jsonify({"message": "Producto no encontrado"}), 404
 
-    db.session.delete(producto)
-    db.session.commit()
+    bd.session.delete(producto)
+    bd.session.commit()
 
     return jsonify({"message": "Producto eliminado"}), 200
 
@@ -54,7 +54,7 @@ def editar_prioridad():
         return jsonify({"message": "Producto no encontrado"}), 404
 
     producto.prioridad = nueva_prioridad
-    db.session.commit()
+    bd.session.commit()
     return producto_schema.jsonify(producto)
 
 @ruta_producto.route('/editarNota', methods=['POST'])
@@ -67,13 +67,13 @@ def editar_nota(id):
         return jsonify({"message": "Producto no encontrado"}), 404
 
     producto.nota = nueva_nota
-    db.session.commit()
+    bd.session.commit()
     return producto_schema.jsonify(producto)
 
 
 @ruta_producto.route('/editarAdquirido', methods=['POST'])
 @token_required
-def editar_adquirido(id):
+def editar_adquirido():
     adquirido = request.json['adquirido']
     id = request.json['id']
     producto = Producto.query.get(id)
@@ -81,5 +81,5 @@ def editar_adquirido(id):
         return jsonify({"message": "Producto no encontrado"}), 404
 
     producto.adquirido = adquirido
-    db.session.commit()
+    bd.session.commit()
     return producto_schema.jsonify(producto)

@@ -6,14 +6,13 @@ class CarroCompra(bd.Model):
     id = bd.Column(bd.Integer, primary_key=True)
     nombre = bd.Column(bd.String(50))
     cantidad = bd.Column(bd.Integer)
-    IdProducto = bd.Column(bd.Integer, bd.ForeignKey("tblProducto.id"))
+    #IdProductoCarroC = bd.Column(bd.Integer, bd.ForeignKey("tblProductoCarroC.id"))
     IdUsuario = bd.Column(bd.Integer, bd.ForeignKey("tblUsuario.id"))
     total = bd.Column(bd.Float)
 
-    def __init__(self, nombre, cantidad, IdProducto, total):
+    def __init__(self, nombre, cantidad , total):
         self.nombre = nombre
         self.cantidad = cantidad
-        self.IdProducto = IdProducto
         self.total = total
 
 with app.app_context():
@@ -22,4 +21,4 @@ with app.app_context():
 class CarroCompraSchema(ma.Schema):
     class Meta:
     
-        fields = ("id", "nombre", "cantidad", "IdProducto", "total")  
+        fields = ("id", "nombre", "cantidad", "total")  

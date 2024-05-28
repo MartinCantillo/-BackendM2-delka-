@@ -45,11 +45,10 @@ def get_carro_compra_by_usuario():
 
     carro_compras = CarroCompra.query.filter_by(IdUsuario=IdUsuario).all()
     if carro_compras:
-        return carroCompras_schema.jsonify(carro_compras)
+        return carroCompras_schema.jsonify.dump(carro_compras)
     else:
         return jsonify({"message": "No purchases found for this user"}), 404
 
-# Ruta para obtener todas las compras
 @ruta_carroCompra.route("/carroCompras", methods=["GET"])
 @token_required
 def get_all_carro_compras():
