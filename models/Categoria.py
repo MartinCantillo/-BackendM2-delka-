@@ -5,6 +5,7 @@ class Categoria(bd.Model):
     id = bd.Column(bd.Integer, primary_key=True)
     nombre = bd.Column(bd.String(50))
     descripcion = bd.Column(bd.String(50))
+    recomendacion=bd.Column(bd.String(50))
     
     def __init__(self, nombre, descripcion):
         self.nombre = nombre

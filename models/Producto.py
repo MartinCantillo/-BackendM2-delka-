@@ -7,17 +7,19 @@ class Producto(bd.Model):
     prioridad = bd.Column(bd.String(50))
     nota = bd.Column(bd.String(50))
     precio = bd.Column(bd.Float)  
+    adquirido = bd.Column(bd.Float)
     IdCategoria = bd.Column(bd.Integer, bd.ForeignKey("tblCategoria.id"))
-    def __init__(self, nombre, prioridad, nota, precio,IdCategoria):
+    def __init__(self, nombre, prioridad, nota, precio,IdCategoria,adquirido):
         self.nombre = nombre
         self.prioridad = prioridad
         self.nota = nota
         self.precio = precio
         self.IdCategoria=IdCategoria
+        self.adquirido=adquirido
 
 with app.app_context():
     bd.create_all()
 
 class ProductoSchema(ma.Schema):
     class Meta:
-        fields = ("id", "nombre", "prioridad", "nota", "precio","IdCategoria") 
+        fields = ("id", "nombre", "prioridad", "nota", "precio","adquirido","IdCategoria") 
