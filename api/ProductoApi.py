@@ -14,7 +14,7 @@ productos_schema = ProductoSchema(many=True)
 def get_productos():
     productos = Producto.query.all()
     result = productos_schema.dump(productos)
-    return jsonify.dump(result)
+    return jsonify(result)
 
 @ruta_producto.route('/addProducto', methods=['POST'])
 @token_required
@@ -23,9 +23,11 @@ def add_producto():
     prioridad = request.json['prioridad']
     nota = request.json['nota']
     precio = request.json['precio']
-    IdCategoria = request.json['IdCategoria']
+    idCategoria = request.json['idCategoria']
+    adquirido = request.json['adquirido']
+    idUsuario = request.json['idUsuario']
 
-    nuevo_producto = Producto(nombre, prioridad, nota, precio, IdCategoria, False)
+    nuevo_producto = Producto(nombre, prioridad, nota, precio,idCategoria,adquirido,idUsuario)
     bd.session.add(nuevo_producto)
     bd.session.commit()
 
@@ -83,3 +85,14 @@ def editar_adquirido():
     producto.adquirido = adquirido
     bd.session.commit()
     return producto_schema.jsonify(producto)
+
+
+
+@ruta_producto.route('/getProductosPorCategoria', methods=['POST'])
+@token_required
+def get_productos_por_categoria():
+    idCategoria = request.json['idCategoria']
+    idUsuario = request.json['idUsuario']
+    productos = Producto.query.filter_by(idCategoria=idCategoria,idUsuario=idUsuario).all()
+    result = productos_schema.dump(productos)
+    return jsonify(result)

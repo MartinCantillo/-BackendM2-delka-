@@ -45,5 +45,3 @@ def delete_categoria(id):
     bd.session.commit()
 
     return jsonify({"message": "Categoría eliminada"}), 200
-
-

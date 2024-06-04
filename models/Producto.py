@@ -6,20 +6,22 @@ class Producto(bd.Model):
     nombre = bd.Column(bd.String(50))
     prioridad = bd.Column(bd.String(50))
     nota = bd.Column(bd.String(50))
-    precio = bd.Column(bd.Float)  
-    adquirido = bd.Column(bd.Float)
-    IdCategoria = bd.Column(bd.Integer, bd.ForeignKey("tblCategoria.id"))
-    def __init__(self, nombre, prioridad, nota, precio,IdCategoria,adquirido):
+    precio = bd.Column(bd.Float)
+    adquirido =bd.Column(bd.String(50))
+    idCategoria = bd.Column(bd.Integer, bd.ForeignKey("tblCategoria.id"))
+    idUsuario= bd.Column(bd.Integer, bd.ForeignKey("tblUsuario.id"))
+    def __init__(self, nombre, prioridad, nota, precio,idCategoria,adquirido,idUsuario):
         self.nombre = nombre
         self.prioridad = prioridad
         self.nota = nota
         self.precio = precio
-        self.IdCategoria=IdCategoria
+        self.idCategoria=idCategoria
         self.adquirido=adquirido
+        self.idUsuario=idUsuario
 
 with app.app_context():
     bd.create_all()
 
 class ProductoSchema(ma.Schema):
     class Meta:
-        fields = ("id", "nombre", "prioridad", "nota", "precio","adquirido","IdCategoria") 
+        fields = ("id", "nombre", "prioridad", "nota", "precio","adquirido","idCategoria","idUsuario")
